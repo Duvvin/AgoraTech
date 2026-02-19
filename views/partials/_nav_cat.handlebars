@@ -1,0 +1,11 @@
+<div class="card-body" style="width: auto;">
+    <nav class="nav column overflow-auto">
+            <a class="nav-link active border border-3 border-info" aria-current="page" href="/posts">Todos</a>
+        {{#each categorias}}
+        <input type="hidden" name="id" id="id" value="{{_id}}">
+            <a class="nav-link active border border-3 border-info" href="/src_posts/{{_id}}">{{nome}}</a>
+        {{else}}
+
+        {{/each}}
+    </nav>
+</div>

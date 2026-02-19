@@ -1,0 +1,20 @@
+<h1>Lista de categorias:</h1>
+<a href="/categorias/add"><button class="btn btn-success mt-3">Adicionar</button></a>
+
+{{#each categorias}}
+<div class="card mt-4">
+    <div class="card-body">
+        <h1>{{nome}}</h1>
+        <small>{{slug}}</small>
+        <br>
+        <small>{{formatDateTime data}}</small><br>
+        <a href="/categorias/edit/{{_id}}"><button class="btn btn-primary mt-4">Editar</button></a>
+        <form action="/categorias/del" method="post">
+            <input type="hidden" name="id" value="{{_id}}">
+            <button type="submit" class="btn btn-danger d-flex mt-4">Deletar</button>
+        </form>
+    </div>
+</div>
+{{else}}
+
+{{/each}}

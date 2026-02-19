@@ -1,0 +1,28 @@
+{{#each erros}}
+    <div class="alert alert-danger">{{erro}}</div>
+{{else}}
+
+{{/each}}
+
+<div class="card">
+        <div class="card-body">
+            <h2 class="mb-3">Nova Postagem</h2>
+            <form action="/posts/add/success" method="post" class="form-control">
+                <label for="titulo" class="form-label mt-2">Título: </label>
+                <input type="text" name="titulo" id="titulo" class="form-control">
+                <label for="descricao" class="form-label mt-2">Descrição: </label>
+                <input type="text" name="descricao" id="descricao" class="form-control">
+                <label for="conteudo" class="form-label mt-2">Conteúdo: </label>
+                <input type="text" name="conteudo" id="conteudo" class="form-control">
+                <label for="categoria" class="form-label mt-2">Selecione uma Categoria: </label>
+                <select name="categoria" id="categoria" class="form-select">
+                    {{#each categorias}}
+                        <option value="{{_id}}">{{nome}}</option>
+                    {{else}}
+                        <option value="0">{{Nenhuma}}</option>
+                    {{/each}}
+                </select>
+                <button type="submit" class="btn btn-success mt-4">Postar</button>
+            </form>
+        </div>
+    </div>

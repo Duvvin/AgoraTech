@@ -1,0 +1,23 @@
+<h1>Página principal</h1>
+<a href="/posts/add" class="mt-4"><button class="btn btn-primary mt-4">Novo Post</button></a>
+<br>
+<br>
+{{>_nav_cat}}
+<div class="card-body" style="width: auto;">
+<div class="card">
+    {{#each postagens}}
+    <div class="card-body">
+        <div class="card">
+            <div class="m-3">
+                <h3>{{titulo}}</h3>
+                <h5>{{descricao}}</h5>
+                <p>{{conteudo}}</p><br>
+                <small>{{formatDateTime data}}</small>
+            </div>
+        </div>
+    </div>
+    {{else}}
+
+    {{/each}}
+</div>
+</div>
