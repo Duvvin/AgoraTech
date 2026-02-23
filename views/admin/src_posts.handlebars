@@ -1,5 +1,9 @@
-<h1>Página principal</h1>
-<a href="/posts/add" class="mt-4"><button class="btn btn-primary mt-4">Novo Post</button></a>
+{{#if user}}
+    <a class="categoria-link ativo" href="/posts/add">Nova Postagem</a>
+{{else}}
+
+{{/if}}
+
 <br>
 <br>
 {{>_nav_cat}}

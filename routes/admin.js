@@ -42,11 +42,12 @@ router.get('/posts', eAdmin, async (req, res) => {
 router.get('/src_posts/:id', eAdmin, async (req, res) => {
     try {
         const categorias = await Categoria.find().lean()
-        const cat = req.params.id
+        const categoriaAtual = req.params.id
         const postagens = await Postagem.find({ categoria: cat }).lean()
 
         res.render('admin/src_posts', {
             categorias,
+            categoriaAtual,
             postagens
         })
 

@@ -1,30 +1,25 @@
-<nav class="navbar navbar-expand-lg bg-dark bg-body-tertiary" data-bs-theme="dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">App Blog</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Início</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/posts/add">Postar</a>
-        </li>
-        {{#if user}}
-          <li class="nav-item">
-          <a class="nav-link" href="/usuarios/logout">Sair</a>
-        </li>
-        {{else}}
-          <li class="nav-item">
-            <a class="nav-link" href="/usuarios/registro">Registro</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/usuarios/login">Login</a>
-          </li>
-        {{/if}}
-      </ul>
-    </div>
-  </div>
-</nav>
+<header class="header">
+  {{#if user}}
+    <nav class="nav-left">
+        <a href="/">Home</a>
+        <a href="/categorias">Categorias</a>
+        <a href="/posts">Postagens</a>
+    </nav>
+  {{else}}
+    <nav class="nav-left">
+      <a href="/">Home</a>
+    </nav>
+  {{/if}}
+
+    <a href="/" class="logo">MeuBlog</a>
+    {{#if user}}
+    <nav class="nav-right">
+          <a href="/usuarios/logout">Sair</a>
+    </nav>
+    {{else}}
+    <nav class="nav-right">
+        <a href="/usuarios/login">Login</a>
+        <a href="/usuarios/registro">Cadastro</a>
+    </nav>
+    {{/if}}
+</header>
