@@ -9,7 +9,10 @@
     const session = require('express-session')
     const flash = require('connect-flash')
     const dayjs = require('dayjs')
+    const usuarios = require('./routes/usuario')
     require('dayjs/locale/pt-br')
+    const passport = require("passport")
+    require("./config/auth")(passport)
 
 // Configurações
     // Modelo de Data
@@ -20,11 +23,16 @@
             resave: true,
             saveUninitialized: true
         }))
+
+        app.use(passport.initialize())
+        app.use(passport.session())
+
         app.use(flash())
     // Middleware
         app.use((req, res, next) => {
             res.locals.success_msg = req.flash("success_msg")
             res.locals.error_msg = req.flash("error_msg")
+            res.locals.error = req.flash("error")
             next()
         })
     // BodyParser
@@ -52,6 +60,7 @@
         app.use(express.static(path.join(__dirname,"public")))
 // Rotas
     app.use('/', admin)
+    app.use('/usuarios', usuarios)
 // Outros
     const PORT = 8081
     app.listen(PORT,() => {

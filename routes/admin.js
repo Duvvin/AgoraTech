@@ -78,7 +78,7 @@ router.post("/posts/add/success", (req, res) => {
 
     if(!categoria) erros.push({ erro: "Voce precisa selecionar uma categoria"})
 
-    if(erros.length > 0) return res.redirect("/posts/add", { erros: erros })
+    if(erros.length > 0) return res.render("/posts/add", { erros: erros })
     
     const novoPost = {
         titulo: titulo,
