@@ -13,6 +13,10 @@
                 <h5>{{descricao}}</h5>
                 <p>{{conteudo}}</p><br>
                 <small>{{formatDateTime data}}</small>
+                <form action="/posts/del" method="post">
+                    <input type="hidden" name="id" value="{{_id}}">
+                    <button type="submit" class="btn btn-danger d-flex mt-4">Deletar</button>
+        </form>
             </div>
         </div>
     </div>

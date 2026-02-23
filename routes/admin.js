@@ -5,14 +5,25 @@ require('../models/categoria')
 const Categoria = mongoose.model('categorias')
 require('../models/Postagem')
 const Postagem = mongoose.model('postagens')
-
+const { eAdmin } = require("/Projetos/APPBlog/helpers/eAdmin")
 // Pagina inicial
-router.get('/', (req, res) => {
-    res.render('admin/index')
+router.get('/', async (req, res) => {
+    try {
+        const categorias = await Categoria.find().lean()
+        const postagens = await Postagem.find().lean()
+
+        res.render('admin/index', {
+            categorias,
+            postagens
+        })
+    } catch(err) {
+        req.flash("error_msg", "Houve um erro: " + err)
+        res.redirect('/')
+    }
 })
 
 //Pagina principal de posts
-router.get('/posts', async (req, res) => {
+router.get('/posts', eAdmin, async (req, res) => {
     try {
         const categorias = await Categoria.find().lean()
         const postagens = await Postagem.find().lean()
@@ -28,7 +39,7 @@ router.get('/posts', async (req, res) => {
 })
 
 //Pagina de posts por categoria
-router.get('/src_posts/:id', async (req, res) => {
+router.get('/src_posts/:id', eAdmin, async (req, res) => {
     try {
         const categorias = await Categoria.find().lean()
         const cat = req.params.id
@@ -47,7 +58,7 @@ router.get('/src_posts/:id', async (req, res) => {
 
 
 // Form Add Posts
-router.get('/posts/add', (req, res) => {
+router.get('/posts/add', eAdmin, (req, res) => {
     Categoria.find().lean().then((categorias) => {
         res.render('admin/addpostagem', {categorias: categorias})
     }).catch((err) => {
@@ -57,7 +68,7 @@ router.get('/posts/add', (req, res) => {
 })
 
 //Add Post Page
-router.post("/posts/add/success", (req, res) => {
+router.post("/posts/add/success", eAdmin, (req, res) => {
     
     erros = []
 
@@ -99,8 +110,19 @@ router.post("/posts/add/success", (req, res) => {
         })
 })
 
+// Rota de remoção de posts
+router.post('/posts/del', eAdmin, (req, res) => {
+    Postagem.deleteOne({_id: req.body.id}).then(() => {
+        req.flash("success_msg", "Postagem excluída com sucesso")
+        res.redirect('/posts')
+    }).catch((err) => {
+        req.flash("error_msg", "Ocorreu um erro ao tentar deletar a postagem")
+        res.redirect("/posts")
+    })
+})
+
 //Pagina de categorias
-router.get('/categorias', (req, res) => {
+router.get('/categorias', eAdmin, (req, res) => {
     Categoria.find().sort({data: 'desc'}).lean().then((categorias) => {
         categorias.forEach(cat => {
             cat.dataFormatada = cat.data.toLocaleDateString('pt-BR')
@@ -113,7 +135,7 @@ router.get('/categorias', (req, res) => {
 })
 
 // Rota para categoria editada // Redirecionando à aba categorias
-router.post('/categorias/edit', (req, res) => {
+router.post('/categorias/edit', eAdmin, (req, res) => {
     Categoria.findOne({_id:req.body.id}).then((categoria) => {
         categoria.nome = req.body.nome
         categoria.slug = req.body.slug
@@ -133,7 +155,7 @@ router.post('/categorias/edit', (req, res) => {
 })
 
 // Rota para formulário de edição
-router.get('/categorias/edit/:id', (req, res) => {
+router.get('/categorias/edit/:id', eAdmin, (req, res) => {
     Categoria.findOne({_id:req.params.id}).lean()
     .then((categoria) => {
         res.render("admin/edit", {categoria: categoria})
@@ -144,7 +166,7 @@ router.get('/categorias/edit/:id', (req, res) => {
 })
 
 // Rota para deletar categoria
-router.post('/categorias/del', (req, res) => {
+router.post('/categorias/del', eAdmin, (req, res) => {
     Categoria.deleteOne({_id: req.body.id}).then(() => {
         req.flash("success_msg", "Categoria excluída com sucesso")
         res.redirect('/categorias')
@@ -155,12 +177,12 @@ router.post('/categorias/del', (req, res) => {
 })
 
 // Adicionar Categoria
-router.get('/categorias/add', (req, res) => {
+router.get('/categorias/add', eAdmin, (req, res) => {
     res.render('admin/addcategorias')
 })
 
 // Categoria Adicionada
-router.post('/categorias/nova', (req, res) => {
+router.post('/categorias/nova', eAdmin, (req, res) => {
 
     let erros = []
 

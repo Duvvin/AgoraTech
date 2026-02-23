@@ -1,3 +1,27 @@
+{{#if user}}
 <a href="/categorias"><button class="btn btn-success mb-4 d-flex">Categorias</button></a>
 
 <a href="/posts"><button class="btn btn-primary">Postagens</button></a>
+{{else}}
+{{/if}}
+<br>
+<br>
+{{>_nav_cat}}
+<div class="card-body" style="width: auto;">
+<div class="card">
+    {{#each postagens}}
+    <div class="card-body">
+        <div class="card">
+            <div class="m-3">
+                <h3>{{titulo}}</h3>
+                <h5>{{descricao}}</h5>
+                <p>{{conteudo}}</p><br>
+                <small>{{formatDateTime data}}</small>
+            </div>
+        </div>
+    </div>
+    {{else}}
+
+    {{/each}}
+</div>
+</div>

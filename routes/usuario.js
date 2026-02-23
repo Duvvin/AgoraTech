@@ -81,4 +81,15 @@ router.post('/login', (req, res, next) => {
     })(req, res, next)
 })
 
+// LogOut
+
+router.get("/logout", async (req, res, next) => {
+    req.logout(function(err) {
+        if (err) return next(err)
+
+        req.flash("success_msg", "Deslogado com sucesso")
+        res.redirect("/")
+    })
+})
+
 module.exports = router
