@@ -42,21 +42,20 @@ router.get('/posts', eAdmin, async (req, res) => {
 router.get('/src_posts/:id', eAdmin, async (req, res) => {
     try {
         const categorias = await Categoria.find().lean()
-        const categoriaAtual = req.params.id
-        const postagens = await Postagem.find({ categoria: cat }).lean()
+        const catAtual = req.params.id
+        const postagens = await Postagem.find({ categoria: catAtual }).lean()
 
         res.render('admin/src_posts', {
             categorias,
-            categoriaAtual,
+            catAtual,
             postagens
         })
 
     } catch (err) {
         req.flash("error_msg", "Houve um erro: " + err)
-        res.redirect('admin/posts')
+        res.redirect('/posts')
     }
 })
-
 
 // Form Add Posts
 router.get('/posts/add', eAdmin, (req, res) => {

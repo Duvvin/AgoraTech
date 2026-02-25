@@ -56,6 +56,11 @@ body {
     text-decoration: none;
 }
 
+.header p {
+    color: white;
+    text-decoration: none;
+}
+
 .categorias-container {
     width: 100%;
     padding: 20px 0;

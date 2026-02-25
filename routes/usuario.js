@@ -14,7 +14,9 @@ router.get('/registro', (req, res) => {
 router.post('/registro/criar', (req, res) => {
     let erros = []
 
-    let nome = req.body.nome
+    let name = req.body.nome
+    let trat = name.split(" ")
+    let nome = trat[0]
     let email = String(req.body.email || "").trim().toLowerCase()
     let senha = req.body.senha
 

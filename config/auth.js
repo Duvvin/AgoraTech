@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs')
 require("../models/Usuario")
 const Usuario = mongoose.model('usuarios')
 
+// Validação do Login
 module.exports = function(passport){
     passport.use(new local({usernameField: 'email', passwordField: 'senha'}, (email, senha, done) => {
         Usuario.findOne({email: email}).then((usuario) => {
@@ -29,7 +30,7 @@ module.exports = function(passport){
 
     passport.deserializeUser(async (id, done) => {
         try {
-            const usuario = await Usuario.findById(id)
+            const usuario = await Usuario.findById(id).lean()
             done(null, usuario)
         
         } catch (err) {

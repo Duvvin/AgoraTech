@@ -10,10 +10,10 @@
       <a href="/">Home</a>
     </nav>
   {{/if}}
-
     <a href="/" class="logo">MeuBlog</a>
     {{#if user}}
     <nav class="nav-right">
+          <p>Olá, {{user.nome}}</p>
           <a href="/usuarios/logout">Sair</a>
     </nav>
     {{else}}

@@ -46,9 +46,9 @@
                 formatDateTime: function(data) {
                     return dayjs(data).format('DD/MM/YYYY [às] HH:mm')
                 },
-                eq: function(a, b) {
-                    return a == b
-                }
+                json: function(context) {
+                    return JSON.stringify(context, null, 2)
+        }
             }
         }))
         app.set('view engine', 'handlebars')
