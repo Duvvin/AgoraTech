@@ -7,13 +7,15 @@
 <div class="card">
         <div class="card-body">
             <h2 class="mb-3">Nova Postagem</h2>
-            <form action="/posts/add/success" method="post" class="form-control">
+            <form action="/posts/add/success" method="post" enctype="multipart/form-data" class="form-control">
                 <label for="titulo" class="form-label mt-2">Título: </label>
                 <input type="text" name="titulo" id="titulo" class="form-control">
                 <label for="descricao" class="form-label mt-2">Descrição: </label>
                 <input type="text" name="descricao" id="descricao" class="form-control">
                 <label for="conteudo" class="form-label mt-2">Conteúdo: </label>
                 <input type="text" name="conteudo" id="conteudo" class="form-control">
+                <label for="file" class="form-label mt-3">Envie uma foto: </label>
+                <input type="file" class="form-control mb-2 mt-1" name="file" id="file">
                 <label for="categoria" class="form-label mt-2">Selecione uma Categoria: </label>
                 <select name="categoria" id="categoria" class="form-select">
                     {{#each categorias}}

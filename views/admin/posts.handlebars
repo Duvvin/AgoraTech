@@ -1,5 +1,9 @@
-<h1 class="">Página principal</h1>
-<a href="/posts/add" class="mt-4"><button class="btn btn-primary mt-4">Novo Post</button></a>
+<h1 class="">Página Principal</h1>
+<div class="box-3">
+  <div class="btn btn-three">
+    <a href="/posts/add">NOVO POST</a>
+  </div>
+</div>
 <br>
 <br>
 {{>_nav_cat}}
@@ -11,6 +15,7 @@
             <div class="m-3">
                 <h3>{{titulo}}</h3>
                 <h5>{{descricao}}</h5>
+                <img src="/uploads/{{img}}" alt="{{titulo}}">
                 <p>{{conteudo}}</p><br>
                 <small>{{formatDateTime data}}</small>
                 <form action="/posts/del" method="post">

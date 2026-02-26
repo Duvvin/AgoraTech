@@ -4,8 +4,16 @@ const mongoose = require('mongoose')
 require('../models/categoria')
 const Categoria = mongoose.model('categorias')
 require('../models/Postagem')
-const Postagem = mongoose.model('postagens')
+const Postagem = mongoose.model('postagens') 
 const { eAdmin } = require("/Projetos/APPBlog/helpers/eAdmin")
+const multer = require('multer')
+const { storage, fileFilter } = require('../config/multer')
+const upload = multer({ storage,
+                        fileFilter,
+                        limits: {
+        fileSize: 2 * 1024 * 1024 // 2MB
+    } })
+
 // Pagina inicial
 router.get('/', async (req, res) => {
     try {
@@ -19,7 +27,7 @@ router.get('/', async (req, res) => {
     } catch(err) {
         req.flash("error_msg", "Houve um erro: " + err)
         res.redirect('/')
-    }
+      }
 })
 
 //Pagina principal de posts
@@ -68,7 +76,7 @@ router.get('/posts/add', eAdmin, (req, res) => {
 })
 
 //Add Post Page
-router.post("/posts/add/success", eAdmin, (req, res) => {
+router.post("/posts/add/success", upload.single('file'), eAdmin, (req, res) => {
     
     erros = []
 
@@ -76,10 +84,11 @@ router.post("/posts/add/success", eAdmin, (req, res) => {
     const descricao = req.body.descricao
     const conteudo = req.body.conteudo
     const categoria = req.body.categoria
+    const img = req.file ? req.file.filename : null
 
     if(!titulo) erros.push({ erro: "Você precisa definir um título" })
-    
-    if(titulo < 5) erros.push({ erro: "Seu título é muito curto" })
+        if(titulo < 5) erros.push({ erro: "Seu título é muito curto" })
+            
     
     if(!descricao) erros.push({ erro: "Você precisa inserir uma descrição" })
 
@@ -95,7 +104,8 @@ router.post("/posts/add/success", eAdmin, (req, res) => {
         titulo: titulo,
         descricao: descricao,
         conteudo: conteudo,
-        categoria: categoria
+        categoria: categoria,
+        img: img
     }
 
     new Postagem(novoPost)
