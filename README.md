@@ -17,7 +17,7 @@ O Site consiste em postagens sobre tecnologia, abordando os mais diversos assunt
 
 Aqui temos algumas imagens de como está o site atualmente, tendo em vista que as páginas foram feitas sem muito comprometimento com o design, mas, isso será melhorado conforme irei aperfeiçoando o projeto.
 
-<img src="./public/cadastro.png">
-<img src="./public/login.png">
-<img src="./public/home.png">
-<img src="./public/nova-postagem.png">
+<img src="./public/img/cadastro.png">
+<img src="./public/img/login.png">
+<img src="./public/img/home.png">
+<img src="./public/img/nova-postagem.png">
