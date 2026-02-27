@@ -4,7 +4,9 @@ const mongoose = require('mongoose')
 require('../models/categoria')
 const Categoria = mongoose.model('categorias')
 require('../models/Postagem')
-const Postagem = mongoose.model('postagens') 
+const Postagem = mongoose.model('postagens')
+require('../models/Usuario')
+const Usuario = mongoose.model('usuarios')
 const { eAdmin } = require("/Projetos/APPBlog/helpers/eAdmin")
 const multer = require('multer')
 const { storage, fileFilter } = require('../config/multer')
@@ -13,7 +15,16 @@ const upload = multer({ storage,
                         limits: {
         fileSize: 2 * 1024 * 1024 // 2MB
     } })
-
+const nodemailer = require('nodemailer')
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+        user: "vduarte735@gmail.com",
+        pass: "zaew ezuo bfao mqeu",
+    }
+})
 // Pagina inicial
 router.get('/', async (req, res) => {
     try {
@@ -76,7 +87,7 @@ router.get('/posts/add', eAdmin, (req, res) => {
 })
 
 //Add Post Page
-router.post("/posts/add/success", upload.single('file'), eAdmin, (req, res) => {
+router.post("/posts/add/success", upload.single('file'), eAdmin, async (req, res) => {
     
     erros = []
 
@@ -87,12 +98,12 @@ router.post("/posts/add/success", upload.single('file'), eAdmin, (req, res) => {
     const img = req.file ? req.file.filename : null
 
     if(!titulo) erros.push({ erro: "Você precisa definir um título" })
-        if(titulo < 5) erros.push({ erro: "Seu título é muito curto" })
+        if(titulo.length < 5) erros.push({ erro: "Seu título é muito curto" })
             
     
     if(!descricao) erros.push({ erro: "Você precisa inserir uma descrição" })
 
-    if(descricao < 5) erros.push({ erro: "Sua descrição é muito curta"})
+    if(descricao.length < 5) erros.push({ erro: "Sua descrição é muito curta"})
 
     if(!conteudo) erros.push({ erro: "Você precisa adicionar um conteudo"})
 
@@ -108,14 +119,22 @@ router.post("/posts/add/success", upload.single('file'), eAdmin, (req, res) => {
         img: img
     }
 
-    new Postagem(novoPost)
+    await new Postagem(novoPost)
         .save()
-        .then(() => {
+        .then(async() => {
+            const users = await Usuario.find().lean()
+            const emails = users.map(user => user.email)
+            transporter.sendMail({
+                from: "AgoraTech <vduarte735@gmail.com>",
+                bcc: emails,
+                subject: novoPost.titulo,
+                html: novoPost.conteudo
+            })
             req.flash("success_msg", "Postagem criada com Sucesso!")
             res.redirect('/posts')
         })
         .catch((err) => {
-            req.flash("error_msg", "Erro ao salvar postagem")
+            req.flash("error_msg", "Erro ao salvar postagem"+err)
             res.redirect('/posts')
         })
 })

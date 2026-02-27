@@ -12,6 +12,7 @@ router.get('/registro', (req, res) => {
 })
 
 router.post('/registro/criar', (req, res) => {
+    
     let erros = []
 
     let name = req.body.nome
