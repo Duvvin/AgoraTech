@@ -4,14 +4,32 @@
 
 {{/each}}
 
-<div class="card">
-    <div class="card-body">
-        <form action="/categorias/nova" method="POST" class="form-control">
-            <label for="titulo" class="form-label">Titulo: </label>
-            <input type="text" name="nome" id="titulo" class="form-control">
-            <label for="conteudo" class="form-label">Conteúdo: </label>
-            <input type="text" name="slug" id="conteudo" class="form-control bg-primary" placeholder="conteudo da categoria"></textarea>
-            <button type="submit" class="btn btn-success mt-3">Criar Categoria</button>
+<div class="category-wrapper">
+    <div class="category-card">
+        <h2 class="category-title">Nova Categoria</h2>
+
+        <form action="/categorias/nova" method="POST">
+
+            <div class="input-group">
+                <label for="nome">Título</label>
+                <input type="text" name="nome" id="nome" required>
+            </div>
+
+            <div class="input-group">
+                <label for="slug">Slug</label>
+                <input 
+                    type="text" 
+                    name="slug" 
+                    id="slug" 
+                    placeholder="ex: tecnologia-web"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn-submit">
+                Criar Categoria
+            </button>
+
         </form>
     </div>
 </div>
