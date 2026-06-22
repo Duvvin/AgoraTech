@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "nodemon app.js"
+  },
   "dependencies": {
     "@abacatepay/sdk": "^1.2.0",
     "abacatepay-nodejs-sdk": "^1.6.0",
@@ -8,7 +11,7 @@
     "connect-flash": "^0.1.1",
     "crypto": "^1.0.1",
     "dayjs": "^1.11.19",
-    "dotenv": "^17.2.4",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-handlebars": "^8.0.5",
     "express-session": "^1.19.0",
@@ -17,6 +20,7 @@
     "mongoose": "^9.1.6",
     "multer": "^2.0.2",
     "nodemailer": "^8.0.1",
+    "nodemon": "^3.1.14",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "popper.js": "^1.16.1",

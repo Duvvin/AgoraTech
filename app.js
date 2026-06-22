@@ -54,7 +54,7 @@
         app.set('view engine', 'handlebars')
     //  Mongoose
         mongoose.promise = global.Promise
-        mongoose.connect('mongodb://localhost/blog')
+        mongoose.connect('mongodb+srv://admin:duvin!06@teste.7rt7gfu.mongodb.net/?appName=Teste')
         .then(() => {
             console.log('Conectado com banco de dados')
         }).catch((err) => {

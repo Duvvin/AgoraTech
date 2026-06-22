@@ -7,7 +7,7 @@ require('../models/Postagem')
 const Postagem = mongoose.model('postagens')
 require('../models/Usuario')
 const Usuario = mongoose.model('usuarios')
-const { eAdmin } = require("/Projetos/APPBlog/helpers/eAdmin")
+const { eAdmin } = require("../helpers/eAdmin")
 const multer = require('multer')
 const { storage, fileFilter } = require('../config/multer')
 const upload = multer({ storage,
