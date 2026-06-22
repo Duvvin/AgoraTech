@@ -11,12 +11,20 @@
     const dayjs = require('dayjs')
     const usuarios = require('./routes/usuario')
     require('dayjs/locale/pt-br')
+    require('dotenv').config()
     const passport = require("passport")
     require("./config/auth")(passport)
+    const dns = require('dns')
+    const mongoURI = process.env.MONGODB_URI
 
 // Configurações
+    // Set DNS
+        dns.setServers([
+            '1.1.1.1',
+            '1.0.0.1'
+        ])
     // Modelo de Data
-    dayjs.locale('pt-br')
+        dayjs.locale('pt-br')
     // Sessão
         app.use(session({
             secret: "cursonode",
@@ -54,7 +62,7 @@
         app.set('view engine', 'handlebars')
     //  Mongoose
         mongoose.promise = global.Promise
-        mongoose.connect('mongodb+srv://admin:duvin!06@teste.7rt7gfu.mongodb.net/?appName=Teste')
+        mongoose.connect(mongoURI)
         .then(() => {
             console.log('Conectado com banco de dados')
         }).catch((err) => {
